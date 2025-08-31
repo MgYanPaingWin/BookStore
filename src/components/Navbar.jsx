@@ -77,7 +77,6 @@ export default function Navbar() {
               src="https://avatars.githubusercontent.com/u/142674055?v=4"
               alt=""
               className="w-full rounded-full"
-              srcset=""
             />
           </div>
         </li>
