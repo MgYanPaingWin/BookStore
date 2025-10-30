@@ -18,11 +18,16 @@ export default function BookDetail() {
               <div>
                 <img src={Human_Nature} alt="" className="w-[80%]"/>
               </div>
-              <div>
+              <div className="space-y-4">
                 <h1 className="text-3xl font-bold">{book.title}</h1>
-                <div>
-                  <span className="bg-blue-500 text-white rounded-full text-xs px-2 py-1" >HTML</span>
+                <div className="space-x-3">
+                  {book.categories.map(category=>(
+                  <span className="bg-blue-500 text-white rounded-full text-sm px-2 py-1" >{category}</span>
+                  ))}
                 </div>
+                <p>
+                  {book.description}
+                </p>
               </div>
             </div>
         )}
