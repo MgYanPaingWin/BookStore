@@ -22,7 +22,7 @@ export default function BookDetail() {
                 <h1 className="text-3xl font-bold">{book.title}</h1>
                 <div className="space-x-3">
                   {book.categories.map(category=>(
-                  <span className="bg-blue-500 text-white rounded-full text-sm px-2 py-1" >{category}</span>
+                  <span className="bg-blue-500 text-white rounded-full text-sm px-2 py-1" key={category}>{category}</span>
                   ))}
                 </div>
                 <p>
