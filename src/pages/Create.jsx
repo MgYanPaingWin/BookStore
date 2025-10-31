@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 
 export default function Create() {
+
+  let [title,setTitle]=useState('');
+  let [description,setDescription]=useState('');
+  let [newcategory,setnewCategory]=useState('');
+
   return (
     <form class="w-full max-w-lg mx-auto mt-5">
       <div class="flex flex-wrap -mx-3 mb-6">
@@ -13,6 +18,8 @@ export default function Create() {
             Book Title
           </label>
           <input
+            value={title}
+            onChange={(e)=>setTitle(e.target.value)}
             class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
             id="grid-password"
             type="password"
@@ -30,6 +37,8 @@ export default function Create() {
             Book Descripton
           </label>
           <textarea
+            value={description}
+            onChange={(e)=>setDescription(e.target.value)}
             class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
             id="grid-password"
             type="password"
@@ -48,6 +57,8 @@ export default function Create() {
           </label>
           <div className="flex items-center space-x-2">
             <input
+            value={newcategory}
+            onChange={(e)=>setnewCategory(e.target.value)}
             class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
             id="grid-password"
             type="password"
