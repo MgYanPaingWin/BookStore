@@ -7,51 +7,54 @@ export default function Create() {
   let [newcategory, setnewCategory] = useState("");
   let [categories, setCategories] = useState(["JS", "React"]);
 
+  let addCategory = (e) => {
+     setCategories(prevState=>[newcategory,...prevState])
+     setnewCategory("");
+  }
+
   return (
-    <form class="w-full max-w-lg mx-auto mt-5">
-      <div class="flex flex-wrap -mx-3 mb-6">
-        <div class="w-full px-3">
+    <form className="w-full max-w-lg mx-auto mt-5">
+      <div className="flex flex-wrap -mx-3 mb-6">
+        <div className="w-full px-3">
           <label
-            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-            for="grid-password"
+            className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+            htmlFor="grid-password"
           >
             Book Title
           </label>
           <input
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-            id="grid-password"
+            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
             type="text"
             placeholder="Book Title"
           />
         </div>
       </div>
 
-      <div class="flex flex-wrap -mx-3 mb-6">
-        <div class="w-full px-3">
+      <div className="flex flex-wrap -mx-3 mb-6">
+        <div className="w-full px-3">
           <label
-            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-            for="grid-password"
+            className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+            htmlFor="grid-password"
           >
             Book Descripton
           </label>
           <textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-            id="grid-password"
+            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
             type="text"
             placeholder="Book Description"
           />
         </div>
       </div>
 
-      <div class="flex flex-wrap -mx-3 mb-6">
-        <div class="w-full px-3">
+      <div className="flex flex-wrap -mx-3 mb-6">
+        <div className="w-full px-3">
           <label
-            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-            for="grid-password"
+            className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+            htmlFor="grid-password"
           >
             Categories
           </label>
@@ -59,12 +62,12 @@ export default function Create() {
             <input
               value={newcategory}
               onChange={(e) => setnewCategory(e.target.value)}
-              class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-              id="grid-password"
+              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+
               type="text"
               placeholder="Book Category"
             />
-            <button className="bg-primary p-1 rounded-lg mb-3">
+            <button type="button" onClick={addCategory} className="bg-primary p-1 rounded-lg mb-3" key={newcategory}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
