@@ -9,6 +9,7 @@ export default function Create() {
   let [categories, setCategories] = useState(["JS", "React"]);
 
   let {setPostData, data : book}=useFetch('http://localhost:3000/books',"POST");
+  let navigate=useNavigate();
 
   let addCategory = () => {
      setCategories(prevState=>[newcategory,...prevState])
@@ -27,7 +28,9 @@ export default function Create() {
   }
 
   useEffect(()=>{
-    console.log(book);
+    if(book){
+      navigate('/')
+    }
   },[book])
 
   return (
