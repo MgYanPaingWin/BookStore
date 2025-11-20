@@ -12,7 +12,7 @@ export default function Navbar() {
     navigate('/?search='+search)  
   };
 
-  let {theme}=useTheme();
+  let {theme,changeTheme}=useTheme();
 
   return (
     <nav className={`border border-b-1`}>
@@ -102,9 +102,9 @@ export default function Navbar() {
               className="w-full rounded-full"
             />
           </div>
-          <div>
-            {theme=== 'dark' && <img src={lightIcon} alt="" className="w-8"/>}
-            {theme==='light' && <img src={darkIcon} alt="" className="w-8"/>}
+          <div className="cursor-pointer">
+            {theme=== 'dark' && <img src={lightIcon} alt="" className="w-8" onClick={()=>changeTheme('light')}/>}
+            {theme==='light' && <img src={darkIcon} alt="" className="w-8"onClick={()=>changeTheme('dark')}/> }
           </div>
         </li>
       </ul>
