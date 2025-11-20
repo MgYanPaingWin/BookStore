@@ -1,19 +1,21 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import useTheme from "../hooks/useTheme";
+import lightIcon from "../assets/light.svg";
+import darkIcon from "../assets/dark.svg";
 
 export default function Navbar() {
   let [search, setSearch] = useState("");
   let navigate=useNavigate();
 
   let handleSearch = () => {
-    navigate('/?search='+search)
+    navigate('/?search='+search)  
   };
 
-  let {theme,changeTheme}=useTheme();
+  let {theme}=useTheme();
 
   return (
-    <nav onClick={changeTheme} className={`border border-b-1 ${theme==='dark' ? 'bg-blue-100' : 'bg-yellow-200'}`}>
+    <nav className={`border border-b-1`}>
       <ul className="flex justify-between items-center p-3 max-w-6xl mx-auto">
         <li className="flex items-center gap-3">
           <svg
@@ -36,7 +38,7 @@ export default function Navbar() {
             onChange={(e) => setSearch(e.target.value)}
             type="text"
             placeholder="search books..."
-            className="outline-none"
+            className="outline-none px-2 py-1 rounded-lg bg-white"
           />
           <button
             onClick={handleSearch}
@@ -99,6 +101,10 @@ export default function Navbar() {
               alt=""
               className="w-full rounded-full"
             />
+          </div>
+          <div>
+            {theme=== 'dark' && <img src={lightIcon} alt="" className="w-8"/>}
+            {theme==='light' && <img src={darkIcon} alt="" className="w-8"/>}
           </div>
         </li>
       </ul>
