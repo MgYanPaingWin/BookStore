@@ -15,7 +15,7 @@ export default function Navbar() {
   let {isDark,changeTheme}=useTheme();
 
   return (
-    <nav className={`border border-b-1 ${isDark ? 'bg-dbg' : 'bg-white'}`}>
+    <nav className={`border border-b-1 ${isDark ? 'bg-dbg border-primary' : 'bg-white'}`}>
       <ul className="flex justify-between items-center p-3 max-w-6xl mx-auto">
         <li className="flex items-center gap-3">
           <svg

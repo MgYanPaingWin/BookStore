@@ -4,14 +4,17 @@ import { useRef } from "react";
 import Navbar from "../../components/Navbar";
 import { SwitchTransition, CSSTransition } from "react-transition-group";
 import './style.css';
+import useTheme from "../../hooks/useTheme";
 
 
 export default function Layout() {
   const location = useLocation();
   const nodeRef = useRef(null);
 
+  let {isDark}=useTheme();
+
   return (
-    <div>
+    <div className={isDark ? 'bg-dbg' : 'bg-white'}>
       <Navbar />
 
       <SwitchTransition>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
+import useTheme from "../hooks/useTheme";
 
 export default function Create() {
   let [title, setTitle] = useState("");
@@ -37,12 +38,15 @@ export default function Create() {
     }
   },[book])
 
+  let {isDark}=useTheme();
+
   return (
-    <form className="w-full max-w-lg mx-auto mt-5" onSubmit={addBook}>
+    <div className="h-screen">
+      <form className="w-full max-w-lg mx-auto mt-5" onSubmit={addBook}>
       <div className="flex flex-wrap -mx-3 mb-6">
         <div className="w-full px-3">
           <label
-            className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+            className={`block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 ${isDark ? 'text-white' : ''}`}
             htmlFor="grid-password"
           >
             Book Title
@@ -60,7 +64,7 @@ export default function Create() {
       <div className="flex flex-wrap -mx-3 mb-6">
         <div className="w-full px-3">
           <label
-            className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+            className={`block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 ${isDark ? 'text-white' : ''}`}
             htmlFor="grid-password"
           >
             Book Descripton
@@ -78,7 +82,7 @@ export default function Create() {
       <div className="flex flex-wrap -mx-3 mb-6">
         <div className="w-full px-3">
           <label
-            className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+            className={`block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 ${isDark ? 'text-white' : ''}`}
             htmlFor="grid-password"
           >
             Categories
@@ -142,5 +146,6 @@ export default function Create() {
         </button>
       </div>
     </form>
+    </div>
   );
 }
