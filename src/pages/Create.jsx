@@ -41,7 +41,7 @@ export default function Create() {
   let {isDark}=useTheme();
 
   return (
-    <div className="h-screen">
+    <div className="h-screen overflow-hidden">
       <form className="w-full max-w-lg mx-auto mt-5" onSubmit={addBook}>
       <div className="flex flex-wrap -mx-3 mb-6">
         <div className="w-full px-3">

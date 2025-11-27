@@ -24,7 +24,7 @@ export default function Layout() {
   },[isDark])
 
   return (
-    <div className={isDark ? 'bg-dbg' : 'bg-white'}>
+    <div className={`h-screen ${isDark ? 'bg-dbg' : 'bg-white'}`}>
       <Navbar />
 
       <SwitchTransition>
