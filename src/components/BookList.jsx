@@ -5,6 +5,7 @@ import useTheme from "../hooks/useTheme";
 import { db } from "../firebase/index.js";
 import { collection, deleteDoc, doc, getDocs, orderBy, query } from "firebase/firestore";
 import trash from "../assets/delete.svg"
+import pencil from "../assets/pencil.svg"
 
 export default function BookList() {
   let location = useLocation();
@@ -82,8 +83,9 @@ export default function BookList() {
                       </span>
                     ))}
                     </div>
-                    <div onClick={(e)=>deleteBook(e,b.id)}>
-                      <img src={trash} alt="" />
+                    <div className="flex space-x-4 items-center">
+                      <Link to={`/edit/${b.id}`}><img src={pencil} alt="" /></Link>   
+                      <img src={trash} alt="" onClick={(e)=>deleteBook(e,b.id)}/>   
                     </div>
                   </div>
                 </div>
