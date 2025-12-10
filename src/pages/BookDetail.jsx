@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Human_Nature from "../assets/Human_Nature.jpg";
 import useTheme from "../hooks/useTheme";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase/index.js";
 
 export default function BookDetail() {
@@ -15,7 +15,7 @@ export default function BookDetail() {
   useEffect(function () {
       setLoading(true);
       let ref=doc(db,'books',id);
-      getDoc(ref).then(doc=>{
+      onSnapshot(ref,doc=>{
         if (doc.exists()) {
           let book={id : doc.id,...doc.data()};
           setBook(book);
