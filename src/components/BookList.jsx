@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from "react";
-import Human_Nature from "../assets/Human_Nature.jpg";
+import book from "../assets/book.png";
 import { Link, useLocation } from "react-router-dom";
 import useTheme from "../hooks/useTheme";
 import { db } from "../firebase/index.js";
-import { collection, deleteDoc, doc, getDocs, orderBy, query } from "firebase/firestore";
-import trash from "../assets/delete.svg"
-import pencil from "../assets/pencil.svg"
+import {
+  collection,
+  deleteDoc,
+  doc,
+  onSnapshot,
+  orderBy,
+  query,
+} from "firebase/firestore";
+import trash from "../assets/delete.svg";
+import pencil from "../assets/pencil.svg";
 
 export default function BookList() {
   let location = useLocation();
@@ -17,20 +24,19 @@ export default function BookList() {
   let [books, setBooks] = useState([]);
   let [loading, setLoading] = useState(false);
 
-  let deleteBook=async (e,id)=>{
+  let deleteBook = async (e, id) => {
     e.preventDefault();
-    let ref=doc(db,'books',id);
+    let ref = doc(db, "books", id);
     await deleteDoc(ref);
-    setBooks(prev=>prev.filter(b=>b.id!==id));
-  }
+    // setBooks((prev) => prev.filter((b) => b.id !== id));
+  };
 
   useEffect(function () {
     setLoading(true);
     let ref = collection(db, "books");
 
-    let q=query(ref,orderBy('date','desc'))
-
-    getDocs(q).then((docs) => {
+    let q = query(ref, orderBy("date", "desc"));
+    onSnapshot(q, (docs) => {
       if (docs.empty) {
         setError("No books found");
         setLoading(false);
@@ -42,7 +48,7 @@ export default function BookList() {
         });
         setBooks(books);
         setLoading(false);
-        setError('');
+        setError("");
       }
     });
   }, []);
@@ -63,11 +69,11 @@ export default function BookList() {
           {books.map((b) => (
             <Link to={`/books/${b.id}`} key={b.id}>
               <div
-                className={`p-4 border border-1 min-h-[550px] ${
+                className={`p-4 border border-1 min-h-[400px] ${
                   isDark ? "text-white bg-dcard border-primary" : ""
                 }`}
               >
-                <img src={Human_Nature} alt="" />
+                <img src={book} alt="" />
                 <div className="text-center space-y-2 mt-3">
                   <h1>{b.title}</h1>
                   <p>{b.description}</p>
@@ -75,17 +81,23 @@ export default function BookList() {
                   <div className="flex flex-wrap justify-between items-center">
                     <div>
                       {b.categories.map((c) => (
-                      <span
-                        key={c}
-                        className="mx-1 my-1 text-white rounded-full px-2 py-1 text-sm bg-blue-500"
-                      >
-                        {c}
-                      </span>
-                    ))}
+                        <span
+                          key={c}
+                          className="mx-1 my-1 text-white rounded-full px-2 py-1 text-sm bg-blue-500"
+                        >
+                          {c}
+                        </span>
+                      ))}
                     </div>
                     <div className="flex space-x-4 items-center">
-                      <Link to={`/edit/${b.id}`}><img src={pencil} alt="" /></Link>   
-                      <img src={trash} alt="" onClick={(e)=>deleteBook(e,b.id)}/>   
+                      <Link to={`/edit/${b.id}`}>
+                        <img src={pencil} alt="" />
+                      </Link>
+                      <img
+                        src={trash}
+                        alt=""
+                        onClick={(e) => deleteBook(e, b.id)}
+                      />
                     </div>
                   </div>
                 </div>
