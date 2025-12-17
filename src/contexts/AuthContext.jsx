@@ -5,8 +5,15 @@ import {auth} from '../firebase'
 
 let AuthContext=createContext();
 
-let AuthReducer=()=>{
-
+let AuthReducer=(state,action)=>{
+    switch (action.type) {
+        case "LOG_IN":
+            return {...state,user : action.payload}
+         case "LOG_OUT":
+            return {...state,user: null}
+        default:
+            return state
+    }
 }
 
 const AuthContextProvider=({children})=> {
@@ -15,7 +22,11 @@ const AuthContextProvider=({children})=> {
 
     useEffect(()=>{
         onAuthStateChanged(auth,(user)=>{
-            console.log(user)
+            if (user) {
+                dispatch({type : "LOG_IN", payload : "user"})
+            }else{
+                dispatch({type : "LOG_OUT"})
+            }
         })
     },[])
 
