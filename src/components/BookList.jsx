@@ -13,6 +13,7 @@ import {
 } from "firebase/firestore";
 import trash from "../assets/delete.svg";
 import pencil from "../assets/pencil.svg";
+import useFireStore from "../hooks/useFireStore.js";
 
 export default function BookList() {
   let location = useLocation();
@@ -20,9 +21,8 @@ export default function BookList() {
 
   let search = params.get("search");
 
-  let [error, setError] = useState("");
-  let [books, setBooks] = useState([]);
-  let [loading, setLoading] = useState(false);
+  let {getCollection}=useFireStore();
+  let {error, data:books, loading}=getCollection("books");
 
   let deleteBook = async (e, id) => {
     e.preventDefault();
@@ -31,27 +31,7 @@ export default function BookList() {
     // setBooks((prev) => prev.filter((b) => b.id !== id));
   };
 
-  useEffect(function () {
-    setLoading(true);
-    let ref = collection(db, "books");
-
-    let q = query(ref, orderBy("date", "desc"));
-    onSnapshot(q, (docs) => {
-      if (docs.empty) {
-        setError("No books found");
-        setLoading(false);
-      } else {
-        let books = [];
-        docs.forEach((doc) => {
-          let book = { id: doc.id, ...doc.data() };
-          books.push(book);
-        });
-        setBooks(books);
-        setLoading(false);
-        setError("");
-      }
-    });
-  }, []);
+  
 
   if (error) {
     return <p>{error}</p>;
