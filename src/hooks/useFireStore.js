@@ -1,12 +1,11 @@
-import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import { collection, doc, onSnapshot, orderBy, query } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { db } from "../firebase";
 
 export default function useFireStore() {
-    
-    //get collection
+  //get collection
   let getCollection = (colName) => {
-    let [error, setError] = useState('');
+    let [error, setError] = useState("");
     let [data, setData] = useState([]);
     let [loading, setLoading] = useState(false);
     useEffect(function () {
@@ -26,11 +25,37 @@ export default function useFireStore() {
           });
           setData(collectionDatas);
           setLoading(false);
-          setError('');
+          setError("");
         }
       });
     }, []);
-    return {error, data, loading}
+    return { error, data, loading };
+  };
+
+  let getDocument = (colName,id) => {
+    let [error, setError] = useState("");
+    let [data, setData] = useState(null);
+    let [loading, setLoading] = useState(false);
+
+    useEffect(
+      function () {
+        setLoading(true);
+        let ref = doc(db, colName, id);
+        onSnapshot(ref, (doc) => {
+          if (doc.exists()) {
+            let book = { id: doc.id, ...doc.data() };
+            setData(book);
+            setLoading(false);
+            setError("");
+          } else {
+            setError("Book not found");
+            setLoading(false);
+          }
+        });
+      },
+      [id]
+    );
+    return { error, data, loading };
   };
 
   //add collection
@@ -41,5 +66,5 @@ export default function useFireStore() {
 
   //update collection
   let updateCollection = () => {};
-  return { getCollection, addCollection, deleteCollection, updateCollection };
+  return { getCollection,getDocument, addCollection, deleteCollection, updateCollection };
 }

@@ -4,29 +4,16 @@ import Human_Nature from "../assets/Human_Nature.jpg";
 import useTheme from "../hooks/useTheme";
 import { doc, getDoc, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase/index.js";
+import useFireStore from "../hooks/useFireStore.js";
 
 export default function BookDetail() {
   let { id } = useParams();
-  let [error, setError] = useState("");
-  let [book, setBook] = useState(null);
-  let [loading, setLoading] = useState(false);
   let { isDark } = useTheme();
 
-  useEffect(function () {
-      setLoading(true);
-      let ref=doc(db,'books',id);
-      onSnapshot(ref,doc=>{
-        if (doc.exists()) {
-          let book={id : doc.id,...doc.data()};
-          setBook(book);
-          setLoading(false);
-          setError('');
-        }else{
-          setError("Book not found");
-          setLoading(false);
-        }
-      })
-  },[id]);
+  let {getDocument}=useFireStore();
+  let { error, data: book, loading } = getDocument('books',id);
+
+  
 
   return (
     <>
