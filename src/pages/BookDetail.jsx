@@ -1,9 +1,6 @@
-import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Human_Nature from "../assets/Human_Nature.jpg";
 import useTheme from "../hooks/useTheme";
-import { doc, getDoc, onSnapshot } from "firebase/firestore";
-import { db } from "../firebase/index.js";
 import useFireStore from "../hooks/useFireStore.js";
 
 export default function BookDetail() {
@@ -12,8 +9,6 @@ export default function BookDetail() {
 
   let {getDocument}=useFireStore();
   let { error, data: book, loading } = getDocument('books',id);
-
-  
 
   return (
     <>

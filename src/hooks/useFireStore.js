@@ -1,4 +1,4 @@
-import { collection, deleteDoc, doc, onSnapshot, orderBy, query } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, onSnapshot, orderBy, query, serverTimestamp, updateDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { db } from "../firebase";
 
@@ -59,7 +59,11 @@ export default function useFireStore() {
   };
 
   //add collection
-  let addCollection = () => {};
+  let addCollection = async (colName,data) => {
+    data.date=serverTimestamp();
+    let ref = collection(db, colName);
+    return addDoc(ref, data);
+  };
 
   //delete collection
   let deleteDocument = async (colName, id) => {
@@ -68,6 +72,11 @@ export default function useFireStore() {
   };
 
   //update collection
-  let updateCollection = () => {};
-  return { getCollection,getDocument, addCollection, deleteDocument, updateCollection };
+  let updateDocument = async (colName,id,data) => {
+    data.date=serverTimestamp();
+    let ref=doc(db,colName,id);
+    return updateDoc(ref,data);
+  };
+
+  return { getCollection,getDocument, addCollection, deleteDocument, updateDocument };
 }

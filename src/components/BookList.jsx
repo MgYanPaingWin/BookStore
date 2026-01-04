@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from "react";
 import book from "../assets/book.png";
 import { Link, useLocation } from "react-router-dom";
 import useTheme from "../hooks/useTheme";
-
 import trash from "../assets/delete.svg";
 import pencil from "../assets/pencil.svg";
 import useFireStore from "../hooks/useFireStore.js";
@@ -21,8 +19,6 @@ export default function BookList() {
     e.preventDefault();
     await deleteDocument("books", id);
   };
-
-  
 
   if (error) {
     return <p>{error}</p>;
