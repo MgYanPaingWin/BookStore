@@ -1,4 +1,4 @@
-import { collection, doc, onSnapshot, orderBy, query } from "firebase/firestore";
+import { collection, deleteDoc, doc, onSnapshot, orderBy, query } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { db } from "../firebase";
 
@@ -62,9 +62,12 @@ export default function useFireStore() {
   let addCollection = () => {};
 
   //delete collection
-  let deleteCollection = () => {};
+  let deleteDocument = async (colName, id) => {
+    let ref = doc(db, colName, id);
+    return deleteDoc(ref);
+  };
 
   //update collection
   let updateCollection = () => {};
-  return { getCollection,getDocument, addCollection, deleteCollection, updateCollection };
+  return { getCollection,getDocument, addCollection, deleteDocument, updateCollection };
 }

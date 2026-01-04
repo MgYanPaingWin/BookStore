@@ -2,15 +2,7 @@ import React, { useEffect, useState } from "react";
 import book from "../assets/book.png";
 import { Link, useLocation } from "react-router-dom";
 import useTheme from "../hooks/useTheme";
-import { db } from "../firebase/index.js";
-import {
-  collection,
-  deleteDoc,
-  doc,
-  onSnapshot,
-  orderBy,
-  query,
-} from "firebase/firestore";
+
 import trash from "../assets/delete.svg";
 import pencil from "../assets/pencil.svg";
 import useFireStore from "../hooks/useFireStore.js";
@@ -21,14 +13,13 @@ export default function BookList() {
 
   let search = params.get("search");
 
-  let {getCollection}=useFireStore();
+  let {getCollection,deleteDocument}=useFireStore();
+
   let {error, data:books, loading}=getCollection("books");
 
   let deleteBook = async (e, id) => {
     e.preventDefault();
-    let ref = doc(db, "books", id);
-    await deleteDoc(ref);
-    // setBooks((prev) => prev.filter((b) => b.id !== id));
+    await deleteDocument("books", id);
   };
 
   
