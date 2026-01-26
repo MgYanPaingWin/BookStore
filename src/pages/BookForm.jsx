@@ -15,6 +15,7 @@ export default function Create() {
   let [categories, setCategories] = useState([]);
   let [isEdit, setIsEdit] = useState(false);
   let {addCollection,updateDocument}=useFireStore();
+  let [imageBase64, setImageBase64] = useState("");
 
   let {user}=useContext(AuthContext);
 
@@ -49,6 +50,17 @@ export default function Create() {
     setnewCategory("");
   };
 
+  let handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        // This result is the long string representing the image
+        setImageBase64(reader.result); 
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   let submitForm =async (e) => {
     e.preventDefault();
@@ -57,6 +69,7 @@ export default function Create() {
       description,
       categories,
       uid:user.uid,
+      coverImage:imageBase64
     };
 
     if(isEdit){
@@ -165,6 +178,20 @@ export default function Create() {
               </span>
             ))}
           </div>
+          <div className="w-full px-3 mb-6">
+            {/* <label className={`block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 ${isDark ? "text-white" : ""}`}>
+              Cover Photo (Max 1MB total doc size)
+            </label> */}
+            <input 
+              type="file" 
+              accept="image/*"
+              onChange={handleImageChange}
+              className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-blue-600"
+            />
+            {imageBase64 && (
+              <img src={imageBase64} alt="Preview" className="mt-2 h-20 w-20 object-cover" />
+            )}
+        </div>
 
           <div className="w-full px-3 my-3">
             <label

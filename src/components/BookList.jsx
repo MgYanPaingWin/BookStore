@@ -1,4 +1,3 @@
-import book from "../assets/book.png";
 import { Link, useLocation } from "react-router-dom";
 import useTheme from "../hooks/useTheme";
 import trash from "../assets/delete.svg";
@@ -44,7 +43,7 @@ export default function BookList() {
                   isDark ? "text-white bg-dcard border-primary" : ""
                 }`}
               >
-                <img src={book} alt="" />
+                <img src={b.coverImage} alt="" />
                 <div className="text-center space-y-2 mt-3">
                   <h1>{b.title}</h1>
                   <p>{b.description}</p>
