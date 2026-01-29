@@ -2,31 +2,41 @@ import React from "react";
 import useFireStore from "../hooks/useFireStore";
 import { useParams } from "react-router-dom";
 import moment from "moment";
+import trash from "../assets/trash.svg";
 
 export default function NoteList() {
   let { id } = useParams();
-  let { getCollection } = useFireStore();
+  let { getCollection,deleteDocument } = useFireStore();
 
   let { data: note } = getCollection("notes", ["bookId", "==", id]);
+
+  let deleteNote = async (id) => {
+      await deleteDocument("notes", id);
+  }
 
   return (
     !!note.length &&
     note.map((n) => (
       <div key={n.id} className="shadow-md p-3 outline-0 my-3">
-        <div className="flex space-x-3">
-          <img
-            src="https://avatars.githubusercontent.com/u/142674055?v=4"
-            alt=""
-            className="w-12 h-12 rounded-full"
-          />
+        <div className="flex space-x-3 justify-between">
           <div>
-            <h3>Yan Paing Win</h3>
-            <div className="text-gray-400">{moment(n?.date?.seconds*1000).fromNow()}</div>
+            <img
+              src="https://avatars.githubusercontent.com/u/142674055?v=4"
+              alt=""
+              className="w-12 h-12 rounded-full"
+            />
+            <div>
+              <h3>Yan Paing Win</h3>
+              <div className="text-gray-400">
+                {moment(n?.date?.seconds * 1000).fromNow()}
+              </div>
+            </div>
+          </div>
+          <div onClick={() => deleteNote(n.id)}>
+            <img src={trash} alt="Delete note" className="w-6 h-6 cursor-pointer" />
           </div>
         </div>
-        <div className="mt-3">
-          {n.notes}
-        </div>
+        <div className="mt-3">{n.notes}</div>
       </div>
     ))
   );
