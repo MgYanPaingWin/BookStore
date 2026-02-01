@@ -41,6 +41,7 @@ export default function BookDetail() {
           </div>
 
           <div>
+            <h3 className="font-bold text-xl text-primary mt-20 mb-5 text-center">My Notes</h3>
             <NoteForm/>
             <NoteList/>
           </div>

@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import useFireStore from "../hooks/useFireStore";
 import { useParams } from "react-router-dom";
 import moment from "moment";
 import trash from "../assets/trash.svg";
+import pencilIcon from "../assets/pencil.svg";
+import NoteForm from "./NoteForm";
 
 export default function NoteList() {
   let { id } = useParams();
   let { getCollection,deleteDocument } = useFireStore();
 
   let { data: note } = getCollection("notes", ["bookId", "==", id]);
+  let [editNote,setEditNote]=useState(null);
 
   let deleteNote = async (id) => {
       await deleteDocument("notes", id);
@@ -32,11 +35,15 @@ export default function NoteList() {
               </div>
             </div>
           </div>
-          <div onClick={() => deleteNote(n.id)}>
-            <img src={trash} alt="Delete note" className="w-6 h-6 cursor-pointer" />
+          <div>
+            <img onClick={() => setEditNote(n)} src={pencilIcon} alt="Edit" className=" cursor-pointer" />
+            <img onClick={() => deleteNote(n.id)} src={trash} alt="Delete note" className="cursor-pointer" />
           </div>
         </div>
-        <div className="mt-3">{n.notes}</div>
+        <div className="mt-3">
+          {n.notes}
+          {editNote?.id==n.id && <NoteForm type="update"/>}
+          </div>
       </div>
     ))
   );
