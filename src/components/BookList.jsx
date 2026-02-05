@@ -16,7 +16,7 @@ export default function BookList() {
 
   let {user}=useContext(AuthContext);
   
-  let {error, data:books, loading}=getCollection("books",['uid','==',user.uid]);
+  let {error, data:books, loading}=getCollection("books",["uid","==",user.uid]);
 
   let deleteBook = async (e, id) => {
     e.preventDefault();
