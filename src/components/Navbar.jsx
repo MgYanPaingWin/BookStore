@@ -76,7 +76,7 @@ export default function Navbar() {
           </svg>
 
           <span className="text-2xl font-bold text-primary hidden md:block">
-            BookStore
+            Library
           </span>
         </NavLink>
 
