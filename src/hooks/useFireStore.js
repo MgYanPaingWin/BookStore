@@ -25,6 +25,7 @@ export default function useFireStore() {
         if (docs.empty) {
           setError("No books found");
           setLoading(false);
+          setData([]);
         } else {
           let collectionDatas = [];
           docs.forEach((doc) => {
