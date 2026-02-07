@@ -5,7 +5,7 @@ import { db } from "../firebase";
 export default function useFireStore() {
   
   //get collection
-  let getCollection = (colName,_q) => {
+  let getCollection = (colName,_q,search) => {
     let qRef=useRef(_q).current
     let [error, setError] = useState("");
     let [data, setData] = useState([]);
@@ -32,12 +32,20 @@ export default function useFireStore() {
             let document = { id: doc.id, ...doc.data() };
             collectionDatas.push(document);
           });
-          setData(collectionDatas);
+
+          if(search.field){
+            let searchedDatas=collectionDatas.filter(doc=>{
+              return doc[search.field].includes(search.value)
+            })
+            setData(searchedDatas);
+          }else{
+            setData(collectionDatas);
+          }
           setLoading(false);
           setError("");
         }
       });
-    }, [qRef]);
+    }, [qRef,search.field,search.value,colName]);
     return { error, data, loading };
   };
 
