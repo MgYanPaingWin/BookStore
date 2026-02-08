@@ -33,9 +33,9 @@ export default function useFireStore() {
             collectionDatas.push(document);
           });
 
-          if(search.field){
+          if(search?.field && search?.value){
             let searchedDatas=collectionDatas.filter(doc=>{
-              return doc[search.field].includes(search.value)
+              return doc[search.field].toLowerCase().includes(search.value.toLowerCase())
             })
             setData(searchedDatas);
           }else{
@@ -45,7 +45,7 @@ export default function useFireStore() {
           setError("");
         }
       });
-    }, [qRef,search.field,search.value,colName]);
+    }, [qRef,search?.field,search?.value,colName]);
     return { error, data, loading };
   };
 
